@@ -10,27 +10,20 @@ import Foundation
 
 enum AppRouter {
     
-    case getSeacrchList
-
-
+    case getSeacrchList(String,Int)
+    
+    
     var baseURL: String {
         
-        return "https://pixabay.com/"
+        return "https://pixabay.com/api/"
     }
     
     var getURL: URL {
         
         switch self {
-        case .getSeacrchList:
-            return URL(string: "\(baseURL)")!
-        }
-    }
-    
-    var getRequestParameter: [String:AnyObject] {
-        
-        switch self {
-        case .getSeacrchList:
-            return ["image_type" : "photo" as AnyObject]
+        case .getSeacrchList(let searchText,let pageNumber):
+            let params = "?key=" + "16545266-b1312151d77a63eceaa5bca42"  + "&q="  +  "\(searchText)"  +  "&page="  +  "\(pageNumber)" + "&image_type=photo"
+            return URL(string: "\(baseURL + params)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
         }
     }
     

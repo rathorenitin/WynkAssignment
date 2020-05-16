@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchImageVC: BaseVC {
-
+    
     // MARK: IBOutlets
     //================
     @IBOutlet weak var searchImageCV: UICollectionView!
@@ -21,27 +21,32 @@ class SearchImageVC: BaseVC {
     private var searchBar = UISearchBar()
     let viewModel = SearchImageViewModel()
     var numberOfColumns = 2
+    let minimumInterItemSpacing: CGFloat = 10
     var sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var collectionViewSize : CGSize {
         get {
-            let minimumInterItemSpacing: CGFloat = 10
-            let side = (searchImageCV.frame.width - sectionInsets.left - sectionInsets.right - CGFloat(numberOfColumns - 1)*minimumInterItemSpacing - 0.002) / CGFloat(numberOfColumns)
-            
-            return CGSize.init(width: side, height: side)
+            let totalSpace = sectionInsets.left
+                + sectionInsets.right
+                + (minimumInterItemSpacing * CGFloat(numberOfColumns - 1))
+            let size = Int((searchImageCV.bounds.width - totalSpace) / CGFloat(numberOfColumns))
+            return CGSize.init(width: size, height: size)
         }
     }
+    var index: Int = 0
     
     //MARK:- View Life Cycle
     //======================
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         initialSetup()
     }
     
-    
-    override func bindController() {
-        //viewModel.delegate = self
+    //MARK:- @IBAction
+    //================
+    @objc  func rightNavBarBtnTapped(_ sender: UIBarButtonItem) {
+        searchBar.resignFirstResponder()
+        self.viewModel.resetData()
     }
 }
 
@@ -53,15 +58,18 @@ extension SearchImageVC {
         registerXibs()
         searchImageCV.dataSource = self
         searchImageCV.delegate = self
-//        searchImageTV.dataSource = self
-//        searchImageTV.delegate = self
+        searchImageTV.dataSource = self
+        searchImageTV.delegate = self
         setupNavBar()
+        self.prepareViewModelObserver()
+        serachTVContainer.isHidden = true
     }
     
     private func registerXibs() {
+        // registering xibs for collectionview
         searchImageCV.registerCell(with: SearchImageCVCell.self)
-        //searchImageCV.registerFooterView(with: ImageCollectionViewFooterView.self)
-        
+        searchImageCV.registerFooterView(with: SearchImageCVFooterView.self)
+        // registering xibs for tableview
         searchImageTV.registerCell(with: SearchImageTVCell.self)
         
     }
@@ -70,7 +78,7 @@ extension SearchImageVC {
         searchBar.delegate = self
         searchBar.placeholder = "Search Images..."
         navigationItem.titleView = searchBar
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icMore"), style: .plain, target: self, action: #selector(rightNavBarBtnTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(rightNavBarBtnTapped))
     }
 }
 
@@ -79,13 +87,61 @@ extension SearchImageVC {
 extension SearchImageVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.view.endEditing(true)
+        searchForText(text: searchBar.text ?? "")
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            //self.viewController.searchFlickrImageForText(searchText: searchText)
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        self.viewModel.resetData()
+        updateViewForSearch()
+        return true
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        serachTVContainer.isHidden = true
+        return true
+    }
+    
+    func searchForText(text: String) {
+        searchBar.resignFirstResponder()
+        searchBar.text = text
+        self.viewModel.searchImageWithText(text)
+    }
+}
+
+//MARK:- API Call action and search result obsevers
+extension SearchImageVC {
+    
+    
+    func prepareViewModelObserver() {
+        
+        self.viewModel.imageDataDidChanges = { [weak self] (finished, error) in
+            guard let strongSelf = self else { return }
+            if !error {
+                DispatchQueue.main.async {
+                    strongSelf.searchImageCV.reloadData()
+                }
+            }
         }
+        
+        self.viewModel.errorHandler = { [weak self] (errorMessage) in
+            DispatchQueue.main.async {
+                guard let strongSelf = self else { return }
+                strongSelf.showAlert(with: "ERROR", message: errorMessage)
+            }
+        }
+        
+        self.viewModel.searchedTextArrayDataDidChanges = { [weak self] (resultChanged) in
+            guard let strongSelf = self else { return }
+            DispatchQueue.main.async {
+                strongSelf.searchImageTV.reloadData()
+            }
+        }
+        
+    }
+    
+    
+    func updateViewForSearch() {
+        serachTVContainer.isHidden = !self.viewModel.canShowSearchView()
     }
     
 }

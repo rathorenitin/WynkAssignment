@@ -11,7 +11,7 @@ import UIKit
 //MARK:- NetworkService Protocol to hit a service
 protocol NetworkServiceProtocol {
     
-    func webRequest(_ endPoint: AppRouter, _ parameters: [String: AnyObject], _ success: @escaping(Data) -> Void, _ failure: @escaping(Error) -> Void)
+    func webRequest(_ endPoint: AppRouter, _ success: @escaping(Data) -> Void, _ failure: @escaping(Error) -> Void)
 }
 
 //MARK:- NetworkService class to hit web services
@@ -31,14 +31,16 @@ class NetworkService: NetworkServiceProtocol {
         reachability.stopNotifier()
     }
     
-    func webRequest(_ endPoint: AppRouter, _ parameters: [String: AnyObject], _ success: @escaping (Data) -> Void, _ failure: @escaping (Error) -> Void) {
-                
+    func webRequest(_ endPoint: AppRouter, _ success: @escaping (Data) -> Void, _ failure: @escaping (Error) -> Void) {
+        
         let request = NSMutableURLRequest(url: endPoint.getURL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = endPoint.getHTTPMethod
-        endPoint.getRequestParameter
-        let headers = ["Content-Type": "application/json"]
+        
+        let headers = ["Content-Type": "application/json",
+                       "Accept": "application/json"]
+        print(endPoint.getURL)
         request.allHTTPHeaderFields = headers
         
         if reachability.connection == .unavailable {

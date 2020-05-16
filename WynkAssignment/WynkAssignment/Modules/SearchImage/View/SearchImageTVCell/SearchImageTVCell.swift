@@ -10,6 +10,20 @@ import UIKit
 
 class SearchImageTVCell: UITableViewCell {
 
+    // MARK: IBOutlets
+    //================
+    @IBOutlet weak var searchedTextLabel: UILabel!
+    
+    // MARK: Properties
+    //=================
+    var searchedTerm: RecentSearchModel? {
+        didSet {
+            configureData()
+        }
+    }
+    
+    //MARK:- View Life Cycle
+    //======================
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +35,14 @@ class SearchImageTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    private func initialSetup(){
+        searchedTextLabel.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        searchedTextLabel.textColor = UIColor.gray
+    }
+    
+    private func configureData() {
+        guard let object = self.searchedTerm else {return}
+        searchedTextLabel.text = object.searchText
+    }
 }

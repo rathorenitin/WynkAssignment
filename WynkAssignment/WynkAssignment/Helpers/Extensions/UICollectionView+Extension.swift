@@ -10,53 +10,29 @@ import UIKit
 
 extension UICollectionView {
     
-    enum WayToUpdate {
-        
-        case None
-        case ReloadData
-        case Insert([IndexPath])
-        case ReloadItems([IndexPath])
-        case ReloadSections(IndexSet)
-        
-        
-        func performWithCollectionView(collectionView: UICollectionView) {
-            
-            switch self {
-                
-            case .None:
-                break
-                
-            case .ReloadData:
-                DispatchQueue.main.async {
-                    collectionView.reloadData()
-                }
-                
-            case .Insert(let indexPaths):
-                DispatchQueue.main.async {
-                    collectionView.insertItems(at: indexPaths)
-                }
-            case .ReloadItems(let indexPaths):
-                DispatchQueue.main.async {
-                    collectionView.reloadItems(at: indexPaths)
-                }
-                
-            case .ReloadSections(let indexSet):
-                DispatchQueue.main.async {
-                    collectionView.reloadSections(indexSet)
-                }
-                
-            }
-        }
-    }
-    
     func registerCell(with identifier: UICollectionViewCell.Type) {
         self.register(UINib(nibName: "\(identifier.self)",bundle:nil),
                       forCellWithReuseIdentifier: "\(identifier.self)")
     }
     
-    
     func dequeueCell <T: UICollectionViewCell> (with identifier: T.Type, indexPath: IndexPath) -> T {
         return self.dequeueReusableCell(withReuseIdentifier: "\(identifier.self)", for: indexPath) as! T
+    }
+    
+    func registerFooterView(with identifier: UICollectionReusableView.Type) {
+       self.register(UINib(nibName: "\(identifier.self)", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "\(identifier.self)")
+    }
+    
+    func registerHeaderView(with identifier: UICollectionReusableView.Type) {
+       self.register(UINib(nibName: "\(identifier.self)", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "\(identifier.self)")
+    }
+    
+    func dequeueFooterView <T: UICollectionReusableView> (with identifier: T.Type, indexPath: IndexPath) -> T {
+        return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "\(identifier.self)", for: indexPath) as! T
+    }
+    
+    func dequeueHeaderView <T: UICollectionReusableView> (with identifier: T.Type, indexPath: IndexPath) -> T {
+        return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "\(identifier.self)", for: indexPath) as! T
     }
 }
 

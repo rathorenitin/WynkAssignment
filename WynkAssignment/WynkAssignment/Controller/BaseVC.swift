@@ -9,14 +9,14 @@
 import UIKit
 
 class BaseVC: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         bindController()
     }
     
-
+    
 }
 
 //MARK:- Extension for Methods

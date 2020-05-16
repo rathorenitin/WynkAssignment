@@ -19,7 +19,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yuD-Jb-h8G">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FaU-tN-8OM">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DPC-At-FwJ">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -68,6 +68,43 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="100.44642857142857"/>
         </scene>
+        <!--Search Image DetailVC-->
+        <scene sceneID="vYq-9Y-bae">
+            <objects>
+                <viewController storyboardIdentifier="SearchImageDetailVC" id="6N2-h8-Joe" customClass="SearchImageDetailVC" customModule="WynkAssignment" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EvJ-he-J63">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PF0-9V-uLt">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="qNv-ij-sup">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="PF0-9V-uLt" firstAttribute="top" secondItem="Axe-Tu-iDg" secondAttribute="top" id="LU1-rT-q7k"/>
+                            <constraint firstItem="Axe-Tu-iDg" firstAttribute="trailing" secondItem="PF0-9V-uLt" secondAttribute="trailing" id="Lb0-U9-8pq"/>
+                            <constraint firstItem="PF0-9V-uLt" firstAttribute="leading" secondItem="EvJ-he-J63" secondAttribute="leading" id="YPs-7G-MR5"/>
+                            <constraint firstItem="Axe-Tu-iDg" firstAttribute="bottom" secondItem="PF0-9V-uLt" secondAttribute="bottom" id="kdq-h3-6Qf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Axe-Tu-iDg"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchImageDetailCV" destination="PF0-9V-uLt" id="9LT-5s-ySN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wDQ-ZC-DxE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1694" y="100"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="XcW-Rx-O07">
             <objects>
@@ -76,6 +113,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9Jl-f8-Bib">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

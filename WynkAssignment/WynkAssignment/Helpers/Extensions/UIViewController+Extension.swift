@@ -10,19 +10,15 @@ import UIKit
 
 extension UIViewController {
     
-    static func instantiate() -> Self {
-        
-        return UIStoryboard.instance.viewController(self)
-    }
-    
-    func initialViewController() -> UIViewController? {
-        
-        return UIStoryboard.instance.instantiateInitialViewController()
-    }
-
-    
+    // Not using static as it wont be possible to override to provide custom storyboardID then
     class var storyboardID : String {
+
         return "\(self)"
+    }
+    
+    static func instantiate(fromAppStoryboard appStoryboard: AppStoryboard) -> Self {
+        
+        return appStoryboard.viewController(self)
     }
     
     func showAlert(with title: String?, message: String?) {
