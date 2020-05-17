@@ -53,7 +53,9 @@ class SearchImageVC: BaseVC {
 // MARK: Extension for private methods
 //=====================================
 extension SearchImageVC {
-    
+    /*
+     setup for implementing delegate and datasource for tableview and collectionview, searchbar and viewmodel observers
+    */
     private func initialSetup() {
         registerXibs()
         searchImageCV.dataSource = self
@@ -65,6 +67,9 @@ extension SearchImageVC {
         serachTVContainer.isHidden = true
     }
     
+    /*
+    registering the xibs for collectionview and tableview
+    */
     private func registerXibs() {
         // registering xibs for collectionview
         searchImageCV.registerCell(with: SearchImageCVCell.self)
@@ -73,7 +78,9 @@ extension SearchImageVC {
         searchImageTV.registerCell(with: SearchImageTVCell.self)
         
     }
-    
+    /*
+    adding search bar in navigation bar
+    */
     private func setupNavBar() {
         searchBar.delegate = self
         searchBar.placeholder = "Search Images..."
@@ -92,7 +99,7 @@ extension SearchImageVC: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         self.viewModel.resetData()
-        updateViewForSearch()
+        updateViewForSearch(searchText: searchBar.text ?? "")
         return true
     }
     
@@ -101,6 +108,13 @@ extension SearchImageVC: UISearchBarDelegate {
         return true
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        updateViewForSearch(searchText: searchText)
+    }
+    
+    /*
+    resigning the searchbar and hitting the api for result
+    */
     func searchForText(text: String) {
         searchBar.resignFirstResponder()
         searchBar.text = text
@@ -111,7 +125,9 @@ extension SearchImageVC: UISearchBarDelegate {
 //MARK:- API Call action and search result obsevers
 extension SearchImageVC {
     
-    
+    /*
+     oembserver for updating collection on success of api result, updating tableview when searched item array is updated and observer for error recevied from api
+     */
     func prepareViewModelObserver() {
         
         self.viewModel.imageDataDidChanges = { [weak self] (finished, error) in
@@ -139,8 +155,11 @@ extension SearchImageVC {
         
     }
     
-    
-    func updateViewForSearch() {
+    /*
+     filtering the searched term for searched text and check if there is any result the show searchview
+     */
+    func updateViewForSearch(searchText: String) {
+        self.viewModel.filterSuggestion(searchText)
         serachTVContainer.isHidden = !self.viewModel.canShowSearchView()
     }
     

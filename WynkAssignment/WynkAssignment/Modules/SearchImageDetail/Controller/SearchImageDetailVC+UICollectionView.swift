@@ -21,7 +21,7 @@ extension SearchImageDetailVC: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(with: SearchImageDetailCVCell.self, indexPath: indexPath)
-        cell.configureData(with: getImage(currentPage: indexPath.row))
+        cell.configureData(with: self.viewModel.getHitModel(indexPath.row))
         return cell
     }
     
@@ -30,13 +30,13 @@ extension SearchImageDetailVC: UICollectionViewDataSource {
         
         switch kind {
         case UICollectionView.elementKindSectionFooter:
-            cell.configureData(with: getImage(currentPage: 0))
+            cell.configureData(with: self.viewModel.getHitModel(0))
         case UICollectionView.elementKindSectionHeader:
             cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchImageDetailCVCell", for: indexPath) as! SearchImageDetailCVCell
             if isViewFirstAppearing {
-                cell.configureData(with: getImage(currentPage: 0))
+                cell.configureData(with: self.viewModel.getHitModel(0))
             } else {
-                cell.configureData(with: getImage(currentPage: numberOfImages - 1))
+                cell.configureData(with: self.viewModel.getHitModel(numberOfImages - 1))
             }
         default:
             assertionFailure("Unexpected element kind")
@@ -93,15 +93,3 @@ extension SearchImageDetailVC: UICollectionViewDelegate {
     }
 }
 
-
-// MARK: UIGestureRecognizerDelegate Methods
-extension SearchImageDetailVC: UIGestureRecognizerDelegate {
-    
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
-        return otherGestureRecognizer is UITapGestureRecognizer &&
-            gestureRecognizer is UITapGestureRecognizer &&
-            otherGestureRecognizer.view is SearchImageDetailCVCell &&
-            gestureRecognizer.view == searchImageDetailCV
-    }
-}

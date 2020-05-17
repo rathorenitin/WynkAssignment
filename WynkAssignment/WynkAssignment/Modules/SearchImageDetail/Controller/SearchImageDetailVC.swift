@@ -65,10 +65,6 @@ class SearchImageDetailVC: UIViewController {
     private var pageBeforeRotation: Int = 0
     private var currentIndexPath: IndexPath = IndexPath(item: 0, section: 0)
     private var flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-    private var pageControlBottomConstraint: NSLayoutConstraint?
-    private var pageControlCenterXConstraint: NSLayoutConstraint?
-    private var pageControlWidthConstraint: NSLayoutConstraint?
-    private var pageControlHeightConstraint: NSLayoutConstraint?
     private var needsLayout = true
     
     
@@ -113,7 +109,9 @@ class SearchImageDetailVC: UIViewController {
 // MARK: Extension for private methods
 //=====================================
 extension SearchImageDetailVC {
-    
+    /*
+     setup for implementing delegate and datasource for tableview and collectionview and refrence of flowlayout
+     */
     private func initialSetup() {
         registerXibs()
         if let layout = self.searchImageDetailCV?.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -124,20 +122,20 @@ extension SearchImageDetailVC {
         searchImageDetailCV.delegate = self
     }
     
+    /*
+     registering the xibs for collectionview
+     */
     private func registerXibs() {
         // registering xibs for collectionview
         searchImageDetailCV.register(SearchImageDetailCVCell.self, forCellWithReuseIdentifier: "SearchImageDetailCVCell")
         searchImageDetailCV.register(SearchImageDetailCVCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SearchImageDetailCVCell")
         searchImageDetailCV.register(SearchImageDetailCVCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchImageDetailCVCell")
     }
-    
+    /*
+     scroll collectionview to passed index
+     */
     private func scrollToImage(withIndex: Int, animated: Bool = false) {
         searchImageDetailCV.scrollToItem(at: IndexPath(item: withIndex, section: 0), at: .centeredHorizontally, animated: animated)
-    }
-    
-    func getImage(currentPage: Int) -> Hit {
-        let imageForPage = self.viewModel.getHitModel(currentPage)
-        return imageForPage!
     }
 }
 

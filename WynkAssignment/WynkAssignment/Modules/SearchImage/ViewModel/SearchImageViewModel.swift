@@ -105,6 +105,18 @@ class SearchImageViewModel: NSObject {
     }
     
     /*
+     filtering the recent search according to search term
+     */
+    func filterSuggestion(_ searchText: String) {
+        if searchText.isEmpty {
+            searchedTermsList = DBManager.shared.recentSeacrhList
+        } else {
+            searchedTermsList = DBManager.shared.recentSeacrhList.filter( { $0.searchText.lowercased().contains(searchText.lowercased())})
+        }
+    }
+    
+    
+    /*
      reset the data
      */
     func resetData() {

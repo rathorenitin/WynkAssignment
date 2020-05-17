@@ -24,11 +24,9 @@ class NavigationRouter {
         window?.rootViewController = navigationController
     }
     
-    func navigateToSearchImageDetailsViewController(listData: [Hit], index: Int, delegate: SearchImageVC)-> SearchImageDetailVC {
+    func navigateToSearchImageDetailsViewController(listData: [Hit], index: Int)-> SearchImageDetailVC {
         let searchImageDetailScene = SearchImageDetailVC.instantiate(fromAppStoryboard: .Main)
         searchImageDetailScene.backgroundColor = UIColor.black
-        //        searchImageDetailScene.modalPresentationStyle = .fullScreen
-        //        searchImageDetailScene.transitioningDelegate = delegate
         searchImageDetailScene.viewModel.imageList = listData
         navigationController.present(searchImageDetailScene, animated: true, completion: { () -> Void in
             searchImageDetailScene.currentPage = index

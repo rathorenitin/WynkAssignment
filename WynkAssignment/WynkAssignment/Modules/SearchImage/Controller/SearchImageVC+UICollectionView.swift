@@ -41,7 +41,7 @@ extension SearchImageVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.index = indexPath.item
-        _ = NavigationRouter.shared.navigateToSearchImageDetailsViewController(listData: self.viewModel.imageList, index: self.index, delegate: self)
+        _ = NavigationRouter.shared.navigateToSearchImageDetailsViewController(listData: self.viewModel.imageList, index: self.index)
         
     }
     
@@ -72,38 +72,4 @@ extension SearchImageVC: UICollectionViewDelegateFlowLayout {
         return self.viewModel.showPaginationLoader ? CGSize(width: collectionView.frame.width, height: 60) : CGSize.zero
     }
 }
-
-
-/*
- commented this code dues to some issue n animation
- // MARK: UIViewController Transitioning Delegate Methods
- extension SearchImageVC: UIViewControllerTransitioningDelegate {
- 
- func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
- return DimmingPresentationController(presentedViewController: presented, presenting: presenting)
- }
- 
- func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
- 
- guard let cell = self.searchImageCV.cellForItem(at: IndexPath(item: index, section: 0)) else { return nil }
- let currentFrame = self.returnCellFrameWithViewController(cell: cell)
- 
- return GalleryPresentingAnimator(pageIndex: index, originFrame: currentFrame)
- }
- 
- func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
- guard let returnCellFrame = self.searchImageCV.cellForItem(at: IndexPath(item: index, section: 0)) else { return nil }
- let cardFrame = returnCellFrameWithViewController(cell:returnCellFrame)
- return GalleryImageDismissAnimator(pageIndex: index, finalFrame: cardFrame)
- }
- 
- 
- func returnCellFrameWithViewController(cell: UICollectionViewCell)-> CGRect{
- let currentCellFrame = cell.layer.presentation()!.frame
- let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
- return cardFrame
- }
- 
- }
- */
 
