@@ -28,6 +28,7 @@ class NavigationRouter {
         let searchImageDetailScene = SearchImageDetailVC.instantiate(fromAppStoryboard: .Main)
         searchImageDetailScene.backgroundColor = UIColor.black
         searchImageDetailScene.viewModel.imageList = listData
+        searchImageDetailScene.modalPresentationStyle = .fullScreen
         navigationController.present(searchImageDetailScene, animated: true, completion: { () -> Void in
             searchImageDetailScene.currentPage = index
         })

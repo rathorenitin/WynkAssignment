@@ -103,7 +103,59 @@ class SearchImageDetailVC: UIViewController {
         }
     }
     
-    
+    //MARK:- @IBAction
+    //================
+    /*
+     pangesture selector handling the zoom and dismiss of viewcontroller
+     */
+    @objc private func wasDragged(_ gesture: PanDirectionGestureRecognizer) {
+        
+        guard let image = gesture.view, isSwipeToDismissEnabled else { return }
+        
+        let translation = gesture.translation(in: self.view)
+        image.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY + translation.y)
+        
+        let yFromCenter = image.center.y - self.view.bounds.midY
+        
+        let alpha = 1 - abs(yFromCenter / self.view.bounds.midY)
+        self.view.backgroundColor = backgroundColor.withAlphaComponent(alpha)
+        
+        if gesture.state == UIGestureRecognizer.State.ended {
+            
+            var swipeDistance: CGFloat = 0
+            let swipeBuffer: CGFloat = 50
+            var animateImageAway = false
+            
+            if yFromCenter > -swipeBuffer && yFromCenter < swipeBuffer {
+                // reset everything
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.view.backgroundColor = self.backgroundColor.withAlphaComponent(1.0)
+                    image.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+                })
+            } else if yFromCenter < -swipeBuffer {
+                swipeDistance = 0
+                animateImageAway = true
+            } else {
+                swipeDistance = self.view.bounds.height
+                animateImageAway = true
+            }
+            
+            if animateImageAway {
+                if self.modalPresentationStyle == .custom {
+                    NavigationRouter.shared.dismissViewController()
+                    return
+                }
+                
+                UIView.animate(withDuration: 0.35, animations: {
+                    self.view.alpha = 0
+                    image.center = CGPoint(x: self.view.bounds.midX, y: swipeDistance)
+                }, completion: { (complete) in
+                    NavigationRouter.shared.dismissViewController()
+                })
+            }
+            
+        }
+    }
 }
 
 // MARK: Extension for private methods
@@ -120,6 +172,7 @@ extension SearchImageDetailVC {
         searchImageDetailCV.contentSize = CGSize(width: 1000.0, height: 1.0)
         searchImageDetailCV.dataSource = self
         searchImageDetailCV.delegate = self
+        setupGestureRecognizers()
     }
     
     /*
@@ -137,6 +190,29 @@ extension SearchImageDetailVC {
     private func scrollToImage(withIndex: Int, animated: Bool = false) {
         searchImageDetailCV.scrollToItem(at: IndexPath(item: withIndex, section: 0), at: .centeredHorizontally, animated: animated)
     }
+    /*
+     pangesture is added for zooming and dismissing the controller
+     */
+    private func setupGestureRecognizers() {
+        
+        let panGesture = PanDirectionGestureRecognizer(direction: CustomPanDirection.vertical, target: self, action: #selector(wasDragged(_:)))
+        searchImageDetailCV.addGestureRecognizer(panGesture)
+        searchImageDetailCV.isUserInteractionEnabled = true
+        
+    }
+    
 }
 
 
+// MARK: Extension for GestureRecognizer Delegate
+//================================================
+extension SearchImageDetailVC: UIGestureRecognizerDelegate {
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return otherGestureRecognizer is UITapGestureRecognizer &&
+            gestureRecognizer is UITapGestureRecognizer &&
+            otherGestureRecognizer.view is SearchImageDetailCVCell &&
+            gestureRecognizer.view == searchImageDetailCV
+    }
+}

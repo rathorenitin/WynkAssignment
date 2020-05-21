@@ -45,7 +45,21 @@
 		84423D2624707CC4006F94E2 /* GalleryPresentingAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84423D2524707CC4006F94E2 /* GalleryPresentingAnimator.swift */; };
 		84423D2924707D6C006F94E2 /* GalleryImageDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84423D2824707D6C006F94E2 /* GalleryImageDismissAnimator.swift */; };
 		84423D2C24707E36006F94E2 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84423D2B24707E36006F94E2 /* DimmingPresentationController.swift */; };
+		84F9DBBB247701C7009058B3 /* ApiTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9DBBA247701C7009058B3 /* ApiTestCase.swift */; };
+		84F9DBBD2477058F009058B3 /* SearchResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 84F9DBBC2477058F009058B3 /* SearchResponse.json */; };
+		84F9DBC1247705DA009058B3 /* SearchResultModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9DBC0247705DA009058B3 /* SearchResultModelTestCase.swift */; };
+		84F9DBC424770A2B009058B3 /* PanDirectionGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9DBC324770A2B009058B3 /* PanDirectionGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		84F9DBB42477016C009058B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8451624C246DC34D009AD21E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84516253246DC34D009AD21E;
+			remoteInfo = WynkAssignment;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		841C16BE246F226B004AD4E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -88,10 +102,23 @@
 		84423D2824707D6C006F94E2 /* GalleryImageDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryImageDismissAnimator.swift; sourceTree = "<group>"; };
 		84423D2B24707E36006F94E2 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		84516254246DC34D009AD21E /* WynkAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WynkAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84F9DBAF2477016C009058B3 /* WynkAssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WynkAssignmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		84F9DBB32477016C009058B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84F9DBBA247701C7009058B3 /* ApiTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiTestCase.swift; sourceTree = "<group>"; };
+		84F9DBBC2477058F009058B3 /* SearchResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SearchResponse.json; sourceTree = "<group>"; };
+		84F9DBC0247705DA009058B3 /* SearchResultModelTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultModelTestCase.swift; sourceTree = "<group>"; };
+		84F9DBC324770A2B009058B3 /* PanDirectionGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanDirectionGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		84516251246DC34D009AD21E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84F9DBAC2477016C009058B3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -366,6 +393,7 @@
 		84423D2324707CB1006F94E2 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				84F9DBC224770A1A009058B3 /* PanDirectionGestureRecognizer */,
 				84423D2A24707E21006F94E2 /* DimmingPresentationController */,
 				84423D2724707D60006F94E2 /* GalleryImageDismissAnimator */,
 				84423D2424707CB1006F94E2 /* GalleryPresentingAnimator */,
@@ -401,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				84516256246DC34D009AD21E /* WynkAssignment */,
+				84F9DBB02477016C009058B3 /* WynkAssignmentTests */,
 				84516255246DC34D009AD21E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -409,6 +438,7 @@
 			isa = PBXGroup;
 			children = (
 				84516254246DC34D009AD21E /* WynkAssignment.app */,
+				84F9DBAF2477016C009058B3 /* WynkAssignmentTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -425,6 +455,33 @@
 				841C16C0246F226B004AD4E1 /* Views */,
 			);
 			path = WynkAssignment;
+			sourceTree = "<group>";
+		};
+		84F9DBB02477016C009058B3 /* WynkAssignmentTests */ = {
+			isa = PBXGroup;
+			children = (
+				84F9DBB9247701C7009058B3 /* AppTestCases */,
+				84F9DBB32477016C009058B3 /* Info.plist */,
+			);
+			path = WynkAssignmentTests;
+			sourceTree = "<group>";
+		};
+		84F9DBB9247701C7009058B3 /* AppTestCases */ = {
+			isa = PBXGroup;
+			children = (
+				84F9DBBC2477058F009058B3 /* SearchResponse.json */,
+				84F9DBBA247701C7009058B3 /* ApiTestCase.swift */,
+				84F9DBC0247705DA009058B3 /* SearchResultModelTestCase.swift */,
+			);
+			path = AppTestCases;
+			sourceTree = "<group>";
+		};
+		84F9DBC224770A1A009058B3 /* PanDirectionGestureRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				84F9DBC324770A2B009058B3 /* PanDirectionGestureRecognizer.swift */,
+			);
+			path = PanDirectionGestureRecognizer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,6 +504,24 @@
 			productReference = 84516254246DC34D009AD21E /* WynkAssignment.app */;
 			productType = "com.apple.product-type.application";
 		};
+		84F9DBAE2477016C009058B3 /* WynkAssignmentTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84F9DBB62477016C009058B3 /* Build configuration list for PBXNativeTarget "WynkAssignmentTests" */;
+			buildPhases = (
+				84F9DBAB2477016C009058B3 /* Sources */,
+				84F9DBAC2477016C009058B3 /* Frameworks */,
+				84F9DBAD2477016C009058B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84F9DBB52477016C009058B3 /* PBXTargetDependency */,
+			);
+			name = WynkAssignmentTests;
+			productName = WynkAssignmentTests;
+			productReference = 84F9DBAF2477016C009058B3 /* WynkAssignmentTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -459,6 +534,10 @@
 				TargetAttributes = {
 					84516253246DC34D009AD21E = {
 						CreatedOnToolsVersion = 11.4.1;
+					};
+					84F9DBAE2477016C009058B3 = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = 84516253246DC34D009AD21E;
 					};
 				};
 			};
@@ -476,6 +555,7 @@
 			projectRoot = "";
 			targets = (
 				84516253246DC34D009AD21E /* WynkAssignment */,
+				84F9DBAE2477016C009058B3 /* WynkAssignmentTests */,
 			);
 		};
 /* End PBXProject section */
@@ -491,6 +571,14 @@
 				841C16CE246F226B004AD4E1 /* LaunchScreen.storyboard in Resources */,
 				841C16CC246F226B004AD4E1 /* Assets.xcassets in Resources */,
 				841C16CF246F226B004AD4E1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84F9DBAD2477016C009058B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84F9DBBD2477058F009058B3 /* SearchResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +617,7 @@
 				841C1705246F3328004AD4E1 /* NetworkService.swift in Sources */,
 				84423D00246FFC1D006F94E2 /* UIImageView+Extension.swift in Sources */,
 				84423D2C24707E36006F94E2 /* DimmingPresentationController.swift in Sources */,
+				84F9DBC424770A2B009058B3 /* PanDirectionGestureRecognizer.swift in Sources */,
 				84423CFE246FF6CA006F94E2 /* ImageDownloader.swift in Sources */,
 				84423D1924706BCF006F94E2 /* SearchImageDetailViewModel.swift in Sources */,
 				84423D20247070C8006F94E2 /* SearchImageDetailVC+UICollectionView.swift in Sources */,
@@ -536,7 +625,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		84F9DBAB2477016C009058B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84F9DBC1247705DA009058B3 /* SearchResultModelTestCase.swift in Sources */,
+				84F9DBBB247701C7009058B3 /* ApiTestCase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		84F9DBB52477016C009058B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84516253246DC34D009AD21E /* WynkAssignment */;
+			targetProxy = 84F9DBB42477016C009058B3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		841C16C3246F226B004AD4E1 /* LaunchScreen.storyboard */ = {
@@ -708,6 +814,46 @@
 			};
 			name = Release;
 		};
+		84F9DBB72477016C009058B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = WynkAssignmentTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WynkAssignmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WynkAssignment.app/WynkAssignment";
+			};
+			name = Debug;
+		};
+		84F9DBB82477016C009058B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = WynkAssignmentTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WynkAssignmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WynkAssignment.app/WynkAssignment";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -725,6 +871,15 @@
 			buildConfigurations = (
 				84516269246DC352009AD21E /* Debug */,
 				8451626A246DC352009AD21E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84F9DBB62477016C009058B3 /* Build configuration list for PBXNativeTarget "WynkAssignmentTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84F9DBB72477016C009058B3 /* Debug */,
+				84F9DBB82477016C009058B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
