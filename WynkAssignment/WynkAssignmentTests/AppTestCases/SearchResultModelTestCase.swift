@@ -21,12 +21,12 @@ class SearchResultModelTestCase: XCTestCase {
     
     func testSearchResultModel() {
         
-        if let path = Bundle.main.path(forResource:"document", ofType:"json") {
+        if let path = Bundle.main.path(forResource:"SearchResponse", ofType:"json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
                 let result = try JSONDecoder().decode(SearchResultModel.self, from: data)
                 
-                if result != nil {
+                if !result.hits.isEmpty {
                     XCTAssert(true, "Expected sucess when there is data")
                 } else {
                     XCTAssert(false, "Expected failure when no data")
@@ -34,6 +34,7 @@ class SearchResultModelTestCase: XCTestCase {
                 
             } catch let error {
                 print("parse error: \(error.localizedDescription)")
+                XCTAssert(false, "json file not found")
             }
         }
     }
